@@ -7,11 +7,13 @@
 # response = requests.get(url, headers=headers)
 # print(response.text)
 
-from selenium.webdriver import Firefox
+from selenium.webdriver import Firefox, FirefoxProfile
 from selenium.webdriver.firefox.options import Options
 opts = Options()
-# opts.set_headless()
-browser = Firefox(options=opts)
+opts.set_headless()
+profile = FirefoxProfile();
+profile.set_preference("javascript.enabled", False)
+browser = Firefox(firefox_profile=profile, options=opts)
 print("Getting page...")
 browser.get('https://www.usnews.com/best-colleges/university-of-chicago-1774/paying')
 
@@ -25,7 +27,6 @@ for li in stats_li_list:
     span_title = li.find_element_by_tag_name("span").text
     strong_content = li.find_element_by_tag_name("strong")
     if span_title is not None:
-
         if span_title.strip() == "ROOM AND BOARD":
             print(strong_content.text)
         elif span_title.strip() == "APPLICATION DEADLINE":
