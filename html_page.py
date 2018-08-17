@@ -9,11 +9,14 @@
 
 from selenium.webdriver import Firefox, FirefoxProfile
 from selenium.webdriver.firefox.options import Options
+import os 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
 opts = Options()
-opts.set_headless()
-profile = FirefoxProfile();
+# opts.set_headless()
+profile = FirefoxProfile()
 profile.set_preference("javascript.enabled", False)
-browser = Firefox(firefox_profile=profile, options=opts)
+browser = Firefox(firefox_profile=profile, options=opts, executable_path=os.path.join(dir_path, 'geckodriver'))
 print("Getting page...")
 browser.get('https://www.usnews.com/best-colleges/university-of-chicago-1774/paying')
 
